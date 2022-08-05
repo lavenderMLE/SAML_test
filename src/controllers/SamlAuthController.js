@@ -20,7 +20,8 @@ const getMetaDataInfo = async ( ) => {
         if (response.data ) { 
             idp = saml.IdentityProvider({
                 metadata: response.data,
-                wantLogoutRequestSigned: false,                
+                wantLogoutRequestSigned: false,
+                singleSignOnService: 'https://fac.eavsrl.it/saml-idp/portal/'
                 // isAssertionEncrypted: true,
                 // messageSigningOrder: 'encrypt-then-sign',
                 }) ;            
