@@ -1,49 +1,70 @@
 
 
 const axios = require('axios') ;
-const { errorMonitor } = require('multer-gridfs-storage');
 
 const AppError = require('../utils/appError') ;
 
 const saml = require('samlify');
 
+const router = express.Router() ;
 
-exports.getMetaDataInfo = async (req, res, next) => {
+let idp ;
+let sp ;
+
+const getMetaDataInfo = async ( ) => {
       
-    let idp ;
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
-    // const uri_forti_metadata = 'https://esaml2.onelogin.com/trust/saml2/http-post/sso/487043' ;
            
     try {
         let response = await axios.get( uri_forti_metadata ) ;
-        console.log( response ) ;
                     
         if (response.data ) { 
-            return next(new AppError(200, 'ok', response.data ));
+            idp = saml.IdentityProvider({
+                metadata: response.data,
+                wantLogoutRequestSigned: false,                
+                // isAssertionEncrypted: true,
+                // messageSigningOrder: 'encrypt-then-sign',
+                }) ;            
+                
+            const sp = saml.ServiceProvider({
+                entityID: 'https://samltestforti.herokuapp.com/sso/sp/metadata',                
+                assertionConsumerService: [{
+                    Binding: saml.Constants.namespace.binding.post,
+                    Location: 'https://samltestforti.herokuapp.com/sso/sp/acs',
+                }]
+            })            
+            
         } else {
             return next(new AppError(403, 'false', response.data ));
-        }
-        
-        
-        // idp = saml.IdentityProvider({
-        //     metadata: response.data,
-        //     isAssertionEncrypted: true,
-        //     messageSigningOrder: 'encrypt-then-sign',
-        //     wantLogoutRequestSigned: true
-        //     }) ;            
-            
-            // console.log( idp ) ;
-            // const sp = saml.ServiceProvider({
-            //   entityID: 'http://localhost:3000/sso/metadata',
-            // })
+        }                        
     } catch(err) {
         return res.status(500).json({
             status: 'failed',
         })
-    }           
-    
-    // return res.status(200).json({
-    //     status : "success",
-    //     // idp: idp,
-    // })
+    }               
 }
+
+exports.spinitRedirect = async ( req, res, next ) => {
+    getMetaDataInfo() ;
+    const { id, context } = sp.creeateLoginRequest( idp, 'redirect' ) ;
+    return res.redirect( context ) ;
+}
+
+exports.processAcs = async ( req, res ) => {
+    try {
+        
+        const [ extract ] = await sp.parseLoginResponse( idp, 'post', req ) ;
+        // console.log( extract.attributes ) ;
+        
+    } catch(e) {        
+        // console.error('[FATAL] when parsing login response sent from forti', e ) ;
+        return res.redirect('/') ;        
+    }
+}
+
+exports.getMetaData = ( req, res ) => {
+    res.header( 'content-Type', 'text/xml' ).send( idp.getMetadata() ) ;
+}
+
+
+// https://fac.eavsrl.it/saml-idp/portal/
