@@ -25,7 +25,7 @@ const getMetaDataInfo = async ( ) => {
                 // messageSigningOrder: 'encrypt-then-sign',
                 }) ;            
                 
-            const sp = saml.ServiceProvider({
+            sp = saml.ServiceProvider({
                 entityID: 'https://samltestforti.herokuapp.com/sso/sp/metadata',                
                 assertionConsumerService: [{
                     Binding: saml.Constants.namespace.binding.post,
@@ -44,8 +44,9 @@ const getMetaDataInfo = async ( ) => {
 }
 
 exports.spinitRedirect = async ( req, res, next ) => {
-    getMetaDataInfo() ;
-    const { id, context } = sp.creeateLoginRequest( idp, 'redirect' ) ;
+    await getMetaDataInfo() ;
+    const { id, context } = await sp.createLoginRequest( idp, 'redirect' ) ;
+    console.loog( context ) ;
     return res.redirect( context ) ;
 }
 
