@@ -9,7 +9,7 @@ const saml = require('samlify');
 exports.getMetaDataInfo = async (req, res, next) => {
       
     let idp ;
-    const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
+    const uri_forti_metadata = 'https://app.onelogin.com/saml/metadata/487043' ;
 
     await Promise.all(
         axios.get(uri_forti_metadata).then(function(data){
