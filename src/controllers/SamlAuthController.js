@@ -13,30 +13,36 @@ exports.getMetaDataInfo = async (req, res, next) => {
 
     try {
         let response = await axios.get( uri_forti_metadata ) ;
-        if (response.data ) {                    
-            return next(new AppError(200, 'getAllRecipient', 'recipients does not exist'));
-        } else {
-            return next(new AppError(403, 'getAllRecipient', 'recipients does not exist'));
-        }
+        
+        return res.status(200).json({
+            status : "success",
+            idp: response,
+        })
+        
+    //     if (response.data ) {                    
+    //         return next(new AppError(200, 'getAllRecipient', 'recipients does not exist'));
+    //     } else {
+    //         return next(new AppError(403, 'getAllRecipient', 'recipients does not exist'));
+    //     }
         
         
-        idp = saml.IdentityProvider({
-            metadata: response.data,
-            isAssertionEncrypted: true,
-            messageSigningOrder: 'encrypt-then-sign',
-            wantLogoutRequestSigned: true
-            }) ;            
+    //     idp = saml.IdentityProvider({
+    //         metadata: response.data,
+    //         isAssertionEncrypted: true,
+    //         messageSigningOrder: 'encrypt-then-sign',
+    //         wantLogoutRequestSigned: true
+    //         }) ;            
             
-            // console.log( idp ) ;
-            // const sp = saml.ServiceProvider({
-            //   entityID: 'http://localhost:3000/sso/metadata',
-            // })
-    } catch(err) {
-        console.log(err) ;
-    }           
+    //         // console.log( idp ) ;
+    //         // const sp = saml.ServiceProvider({
+    //         //   entityID: 'http://localhost:3000/sso/metadata',
+    //         // })
+    // } catch(err) {
+    //     console.log(err) ;
+    // }           
     
-    return res.status(200).json({
-        status : "success",
-        idp: idp,
-    })
+    // return res.status(200).json({
+    //     status : "success",
+    //     idp: idp,
+    // })
 }
