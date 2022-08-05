@@ -1,6 +1,7 @@
 
 
 const axios = require('axios') ;
+const { errorMonitor } = require('multer-gridfs-storage');
 
 // const AppError = require('../utils/appError') ;
 
@@ -16,7 +17,7 @@ exports.getMetaDataInfo = async (req, res, next) => {
         res.status(200).json({ data : data});
     })
     .catch(function(error){
-        res.status(500).send("sdfdf") ;
+        res.status(500).send(error) ;
     })    
         
     
