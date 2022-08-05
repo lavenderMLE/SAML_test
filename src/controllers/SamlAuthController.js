@@ -11,8 +11,8 @@ const saml = require('samlify');
 exports.getMetaDataInfo = async (req, res, next) => {
       
     let idp ;
-    const uri_forti_metadata = 'https://app.onelogin.com/saml/metadata/487043' ;
-    // const uri_forti_metadata = 'https://esaml2.onelogin.com/trust/saml2/http-post/sso/487043' ;
+    // const uri_forti_metadata = 'https://app.onelogin.com/saml/metadata/487043' ;
+    const uri_forti_metadata = 'https://esaml2.onelogin.com/trust/saml2/http-post/sso/487043' ;
 
     
     // axios.get(uri_forti_metadata).then(function(data){
