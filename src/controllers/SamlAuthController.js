@@ -24,7 +24,7 @@ const getMetaDataInfo = async ( ) => {
                 // isAssertionEncrypted: true,
                 // messageSigningOrder: 'encrypt-then-sign',
                 }) ;            
-                
+            console.log( idp ) ;
             sp = saml.ServiceProvider({
                 entityID: 'https://samltestforti.herokuapp.com/sso/sp/metadata',                
                 assertionConsumerService: [{
