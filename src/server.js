@@ -24,8 +24,8 @@ dotenv.config({
 
 const port = process.env.PORT;
 
-app.listen(port, () => {
-    console.log(`Application is running on port ${port}`);
+app.listen( 3000, () => {
+    console.log(`Application is running on port ${port || 3000}`);
 });
 
 // process.on('unhandledRejection', err => {
