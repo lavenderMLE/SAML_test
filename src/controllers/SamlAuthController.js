@@ -18,6 +18,7 @@ exports.getMetaDataInfo = async (req, res, next) => {
         .catch(function(error){
            res.status(500).send("sdfdf") ;
         })    
+        
     )
       
     // try {
