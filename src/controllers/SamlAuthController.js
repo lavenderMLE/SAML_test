@@ -10,7 +10,7 @@ const saml = require('samlify');
 let idp ;
 let sp ;
 
-const getMetaDataInfo = async ( ) => {
+const getMetaDataInfo = async ( req, res, next ) => {
       
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
            
