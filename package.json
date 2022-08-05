@@ -5,7 +5,6 @@
     "main": "./src/server.js",
     "scripts": {
         "debug": "ndb server.js",
-        "server": "nodemon server.js",
         "start": "nodemon server.js"
     },
     "author": "Moath Shreim",
