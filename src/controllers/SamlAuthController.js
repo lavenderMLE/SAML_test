@@ -40,12 +40,12 @@ const getMetaDataInfo = async ( req, res, next ) => {
     } catch(err) {
         return res.status(500).json({
             status: 'failed',
-        })
+        }) ;
     }               
 }
 
 exports.spinitRedirect = async ( req, res, next ) => {
-    await getMetaDataInfo() ;
+    await getMetaDataInfo( req, res, next ) ;
     const { id, context } = await sp.createLoginRequest( idp, 'redirect' ) ;
     
     console.log( context ) ;
@@ -71,3 +71,7 @@ exports.getMetaData = ( req, res ) => {
 
 
 // https://fac.eavsrl.it/saml-idp/portal/
+
+
+
+
