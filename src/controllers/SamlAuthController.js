@@ -6,8 +6,7 @@ const AppError = require('../utils/appError') ;
 
 const saml = require('samlify');
 
-const router = express.Router() ;
-
+ 
 let idp ;
 let sp ;
 
