@@ -13,24 +13,15 @@ exports.getMetaDataInfo = async (req, res, next) => {
     let idp ;
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
     // const uri_forti_metadata = 'https://esaml2.onelogin.com/trust/saml2/http-post/sso/487043' ;
-
-    
-    // axios.get(uri_forti_metadata).then(function(data){
-    //     res.status(200).json({ data : data});
-    // })
-    // .catch(function(error){
-    //     res.status(500).send(error) ;
-    // })    
-        
-    
+           
     try {
         let response = await axios.get( uri_forti_metadata ) ;
         console.log( response ) ;
                     
         if (response.data ) { 
-            return next(new AppError(200, 'getAllRecipient', response.data ));
+            return next(new AppError(200, 'ok', response.data ));
         } else {
-            return next(new AppError(403, 'getAllRecipient', response.data ));
+            return next(new AppError(403, 'false', response.data ));
         }
         
         
