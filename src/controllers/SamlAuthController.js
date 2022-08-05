@@ -11,14 +11,17 @@ exports.getMetaDataInfo = async (req, res, next) => {
     let idp ;
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
 
-    // try {
+    try {
         let response = await axios.get( uri_forti_metadata ) ;
         
         return res.status().json({
-            status : "success",
-            idp: response,
+            ...response
         })
-        
+    }catch(err){
+        return res.status().json({
+            ...err
+        }) ;
+    }   
     //     if (response.data ) {                    
     //         return next(new AppError(200, 'getAllRecipient', 'recipients does not exist'));
     //     } else {
