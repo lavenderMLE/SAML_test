@@ -11,7 +11,7 @@ exports.getMetaDataInfo = async (req, res, next) => {
     let idp ;
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
 
-    try {
+    // try {
         let response = await axios.get( uri_forti_metadata ) ;
         
         return res.status(200).json({
