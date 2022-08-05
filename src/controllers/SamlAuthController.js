@@ -46,7 +46,9 @@ const getMetaDataInfo = async ( ) => {
 exports.spinitRedirect = async ( req, res, next ) => {
     await getMetaDataInfo() ;
     const { id, context } = await sp.createLoginRequest( idp, 'redirect' ) ;
-    console.loog( context ) ;
+    
+    console.log( context ) ;
+    
     return res.redirect( context ) ;
 }
 
