@@ -7,9 +7,9 @@ const axios = require('axios') ;
 const saml = require('samlify');
 
 exports.getMetaDataInfo = async (req, res, next) => {
-      
+      https://fac.eavsrl.it/saml-idp/portal/
     let idp ;
-    const uri_forti_metadata = 'https://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
+    const uri_forti_metadata = 'https://fac.eavsrl.it/saml-idp/portal/' ;
 
     await Promise.all(
         axios.get(uri_forti_metadata).then(function(data){
