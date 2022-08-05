@@ -24,6 +24,7 @@ exports.getMetaDataInfo = async (req, res, next) => {
     
     try {
         let response = await axios.get( uri_forti_metadata ) ;
+        console.log( response ) ;
                     
         if (response.data ) { 
             return next(new AppError(200, 'getAllRecipient', response.data ));
