@@ -11,15 +11,15 @@ exports.getMetaDataInfo = async (req, res, next) => {
     let idp ;
     const uri_forti_metadata = 'https://fac.eavsrl.it/saml-idp/portal/' ;
 
-    // await Promise.all(
-    //     axios.get(uri_forti_metadata).then(function(data){
-    //         res.status(200).json({ data : data});
-    //     })
-    //     .catch(function(error){
-    //        res.status(500).send("sdfdf") ;
-    //     })    
+    await Promise.all(
+        axios.get(uri_forti_metadata).then(function(data){
+            res.status(200).json({ data : data});
+        })
+        .catch(function(error){
+           res.status(500).send("sdfdf") ;
+        })    
         
-    // )
+    )
       
     // try {
     //     let response = await axios.get( uri_forti_metadata ) ;
@@ -55,8 +55,8 @@ exports.getMetaDataInfo = async (req, res, next) => {
     //     console.log(err) ;
     // }           
     
-    return res.status(200).json({
-        status : "success",
-        // idp: idp,
-    })
+    // return res.status(200).json({
+    //     status : "success",
+    //     // idp: idp,
+    // })
 }
