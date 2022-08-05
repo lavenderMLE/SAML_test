@@ -1,5 +1,3 @@
-
-
 const axios = require('axios') ;
 
 const AppError = require('../utils/appError') ;
@@ -22,10 +20,7 @@ const getMetaDataInfo = async ( req, res, next ) => {
                 metadata: response.data,
                 wantLogoutRequestSigned: false,
                 singleSignOnService: 'https://fac.eavsrl.it/saml-idp/portal/'
-                // isAssertionEncrypted: true,
-                // messageSigningOrder: 'encrypt-then-sign',
                 }) ;            
-            console.log( idp ) ;
             sp = saml.ServiceProvider({
                 entityID: 'https://samltestforti.herokuapp.com/sso/sp/metadata',                
                 assertionConsumerService: [{
@@ -48,8 +43,6 @@ exports.spinitRedirect = async ( req, res, next ) => {
     await getMetaDataInfo( req, res, next ) ;
     const { id, context } = await sp.createLoginRequest( idp, 'redirect' ) ;
     
-    console.log( context ) ;
-    
     return res.redirect( context ) ;
 }
 
@@ -57,10 +50,8 @@ exports.processAcs = async ( req, res ) => {
     try {
         
         const [ extract ] = await sp.parseLoginResponse( idp, 'post', req ) ;
-        // console.log( extract.attributes ) ;
         
     } catch(e) {        
-        // console.error('[FATAL] when parsing login response sent from forti', e ) ;
         return res.redirect('/') ;        
     }
 }
