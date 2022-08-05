@@ -11,17 +11,27 @@ exports.getMetaDataInfo = async (req, res, next) => {
     let idp ;
     const uri_forti_metadata = 'http://fac.eavsrl.it/saml-idp/v7e5xv5te453dv0x/metadata/' ;
 
-    try {
-        let response = await axios.get( uri_forti_metadata ) ;
-        
-        return res.status().json({
-            ...response
+    await Promise.all(
+        axios.get(uri_forti_metadata).then(function(data){
+            res.status(200).json({ data : data});
         })
-    }catch(err){
-        return res.status().json({
-            ...err
-        }) ;
-    }   
+        .catch(function(error){
+           res.status(500).send("sdfdf") ;
+        })    
+    )
+      
+    // try {
+    //     let response = await axios.get( uri_forti_metadata ) ;
+        
+    //     return res.status(200).json({
+    //         ...response
+    //     })
+    // }catch(err){
+    //     return res.status(200).json({
+    //         ...err
+    //     }) ;
+    // }   
+
     //     if (response.data ) {                    
     //         return next(new AppError(200, 'getAllRecipient', 'recipients does not exist'));
     //     } else {
